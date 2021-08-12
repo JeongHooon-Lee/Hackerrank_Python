@@ -1,3 +1,4 @@
+#https://www.hackerrank.com/challenges/arrays-ds/problem
 import sys
 A= int(input().strip())
 N= list(map(int, sys.stdin.readline().rstrip().split()))

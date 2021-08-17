@@ -1,4 +1,4 @@
-#https://www.hackerrank.com/challenges/print-the-elements-of-a-linked-list-in-reverse/problem?h_r=next-challenge&h_v=zen
+#https://www.hackerrank.com/challenges/delete-duplicate-value-nodes-from-a-sorted-linked-list/problem?h_r=next-challenge&h_v=zen
 #!/bin/python3
 import math
 import os
@@ -27,18 +27,19 @@ class SinglyLinkedList:
 
         self.tail = node
 
-def print_singly_linked_list(node, sep):
+def print_singly_linked_list(node, sep, fptr):
     while node:
-        print(node.data, end='')
+        fptr.write(str(node.data))
 
         node = node.next
 
         if node:
-            print(sep, end='')
+            fptr.write(sep)
 
 #
-# Complete the 'reversePrint' function below.
+# Complete the 'removeDuplicates' function below.
 #
+# The function is expected to return an INTEGER_SINGLY_LINKED_LIST.
 # The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
 #
 
@@ -51,24 +52,23 @@ def print_singly_linked_list(node, sep):
 #
 #
 
-def reversePrint(llist):
+def removeDuplicates(llist):
     # Write your code here
-    answer=[]
+    tmp=llist
+    
     while True:
-        if llist.data:
-            answer.insert(0,llist.data)
-        if llist.next == None:
-            break
+        if tmp.next == None:
+            return llist
+        if tmp.next.data == tmp.data:
+            tmp.next=tmp.next.next
         else:
-            llist=llist.next
-            
-    for i in answer:
-        print(i)
-        
+            tmp=tmp.next
 if __name__ == '__main__':
-    tests = int(input())
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
-    for tests_itr in range(tests):
+    t = int(input())
+
+    for t_itr in range(t):
         llist_count = int(input())
 
         llist = SinglyLinkedList()
@@ -77,4 +77,10 @@ if __name__ == '__main__':
             llist_item = int(input())
             llist.insert_node(llist_item)
 
-        reversePrint(llist.head)
+        llist1 = removeDuplicates(llist.head)
+
+        print_singly_linked_list(llist1, ' ', fptr)
+        fptr.write('\n')
+
+    fptr.close()
+

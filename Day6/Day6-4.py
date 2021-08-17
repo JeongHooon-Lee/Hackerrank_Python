@@ -1,4 +1,4 @@
-#https://www.hackerrank.com/challenges/print-the-elements-of-a-linked-list-in-reverse/problem?h_r=next-challenge&h_v=zen
+#https://www.hackerrank.com/challenges/get-the-value-of-the-node-at-a-specific-position-from-the-tail/problem
 #!/bin/python3
 import math
 import os
@@ -27,19 +27,22 @@ class SinglyLinkedList:
 
         self.tail = node
 
-def print_singly_linked_list(node, sep):
+def print_singly_linked_list(node, sep, fptr):
     while node:
-        print(node.data, end='')
+        fptr.write(str(node.data))
 
         node = node.next
 
         if node:
-            print(sep, end='')
+            fptr.write(sep)
 
 #
-# Complete the 'reversePrint' function below.
+# Complete the 'getNode' function below.
 #
-# The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER_SINGLY_LINKED_LIST llist
+#  2. INTEGER positionFromTail
 #
 
 #
@@ -51,21 +54,19 @@ def print_singly_linked_list(node, sep):
 #
 #
 
-def reversePrint(llist):
+def getNode(llist, positionFromTail):
     # Write your code here
-    answer=[]
     while True:
-        if llist.data:
-            answer.insert(0,llist.data)
-        if llist.next == None:
-            break
-        else:
-            llist=llist.next
-            
-    for i in answer:
-        print(i)
+        tmp=llist
+        for i in range(positionFromTail):
+            tmp=tmp.next
+        if tmp.next == None:
+            return llist.data
+        llist=llist.next
         
 if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
     tests = int(input())
 
     for tests_itr in range(tests):
@@ -77,4 +78,10 @@ if __name__ == '__main__':
             llist_item = int(input())
             llist.insert_node(llist_item)
 
-        reversePrint(llist.head)
+        position = int(input())
+
+        result = getNode(llist.head, position)
+
+        fptr.write(str(result) + '\n')
+
+    fptr.close()

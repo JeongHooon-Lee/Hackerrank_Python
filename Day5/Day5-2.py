@@ -1,7 +1,5 @@
 #https://www.hackerrank.com/challenges/print-the-elements-of-a-linked-list/problem
-
 #!/bin/python3
-
 import math
 import os
 import random
@@ -45,7 +43,7 @@ def printLinkedList(head):
         printLinkedList(head.next)
         
 if __name__ == '__main__':
-    llist_count = int(sys.stdin.readline())
+    llist_count = int(input())
 
     llist = SinglyLinkedList()
 

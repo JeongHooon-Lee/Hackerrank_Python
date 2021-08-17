@@ -1,5 +1,4 @@
 #https://www.hackerrank.com/challenges/insert-a-node-at-the-tail-of-a-linked-list/problem?h_r=next-challenge&h_v=zen
-
 def insertNodeAtTail(head, data):
         node = SinglyLinkedListNode(data)
         a

@@ -1,11 +1,13 @@
-#https://www.hackerrank.com/challenges/arrays-ds/problem
+#https://www.hackerrank.com/challenges/array-left-rotation/problem
 import sys
-A= int(input().strip())
-N= list(map(int, sys.stdin.readline().rstrip().split()))
 
-#rint(' '.join(map(str,reversed(N))))
-temp=[]
-for i in reversed(N):
-    temp.append(i)
+A,B= map(int, sys.stdin.readline().split())
 
-print(' '.join(map(str,temp)))
+arr= list(map(int, sys.stdin.readline().rstrip().split()))
+
+for i in range(B):
+    arr.append(arr[0])
+    del arr[0]
+    
+for i in arr:
+    print(i, end=' ')

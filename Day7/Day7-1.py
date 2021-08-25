@@ -1,91 +1,61 @@
-#https://www.hackerrank.com/challenges/reverse-a-doubly-linked-list/problem
-#!/bin/python3
-import math
-import os
-import random
-import re
-import sys
+#https://www.hackerrank.com/challenges/tree-preorder-traversal/problem
+class Node:
+    def __init__(self, info): 
+        self.info = info  
+        self.left = None  
+        self.right = None 
+        self.level = None 
 
-class DoublyLinkedListNode:
-    def __init__(self, node_data):
-        self.data = node_data
-        self.next = None
-        self.prev = None
+    def __str__(self):
+        return str(self.info) 
 
-class DoublyLinkedList:
-    def __init__(self):
-        self.head = None
-        self.tail = None
+class BinarySearchTree:
+    def __init__(self): 
+        self.root = None
 
-    def insert_node(self, node_data):
-        node = DoublyLinkedListNode(node_data)
-
-        if not self.head:
-            self.head = node
+    def create(self, val):  
+        if self.root == None:
+            self.root = Node(val)
         else:
-            self.tail.next = node
-            node.prev = self.tail
+            current = self.root
+         
+            while True:
+                if val < current.info:
+                    if current.left:
+                        current = current.left
+                    else:
+                        current.left = Node(val)
+                        break
+                elif val > current.info:
+                    if current.right:
+                        current = current.right
+                    else:
+                        current.right = Node(val)
+                        break
+                else:
+                    break
+
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)
+"""
+def preOrder(root):
+    #Write your code here
+    print(root.info, end=' ')
+    if root.left:
+        preOrder(root.left)
+    if root.right:
+        preOrder(root.right)
 
 
-        self.tail = node
+tree = BinarySearchTree()
+t = int(input())
 
-def print_doubly_linked_list(node, sep, fptr):
-    while node:
-        fptr.write(str(node.data))
+arr = list(map(int, input().split()))
 
-        node = node.next
+for i in range(t):
+    tree.create(arr[i])
 
-        if node:
-            fptr.write(sep)
-
-#
-# Complete the 'reverse' function below.
-#
-# The function is expected to return an INTEGER_DOUBLY_LINKED_LIST.
-# The function accepts INTEGER_DOUBLY_LINKED_LIST llist as parameter.
-#
-
-#
-# For your reference:
-#
-# DoublyLinkedListNode:
-#     int data
-#     DoublyLinkedListNode next
-#     DoublyLinkedListNode prev
-#
-#
-
-def reverse(llist):
-    # Write your code here
-    tmp=[]
-    tmp2=DoublyLinkedList()
-    llist2=llist
-    for i in range(llist_count):
-        tmp.insert(0,llist2.data)
-        llist2=llist2.next
-        
-    for i in tmp:
-        tmp2.insert_node(i)
-        
-    return tmp2.head
-    
-if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
-    t = int(input())
-
-    for t_itr in range(t):
-        llist_count = int(input())
-
-        llist = DoublyLinkedList()
-
-        for _ in range(llist_count):
-            llist_item = int(input())
-            llist.insert_node(llist_item)
-
-        llist1 = reverse(llist.head)
-
-        print_doubly_linked_list(llist1, ' ', fptr)
-        fptr.write('\n')
-
-    fptr.close()
+preOrder(tree.root)

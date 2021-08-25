@@ -1,4 +1,4 @@
-#https://www.hackerrank.com/challenges/tree-postorder-traversal/problem
+#https://www.hackerrank.com/challenges/tree-level-order-traversal/problem
 class Node:
     def __init__(self, info): 
         self.info = info  
@@ -18,7 +18,7 @@ class BinarySearchTree:
             self.root = Node(val)
         else:
             current = self.root
-         
+            
             while True:
                 if val < current.info:
                     if current.left:
@@ -41,13 +41,24 @@ self.left (the left child of the node)
 self.right (the right child of the node)
 self.info (the value of the node)
 """
-def postOrder(root):
+from collections import deque
+
+def levelOrder(root):
     #Write your code here
-    if root.left:
-        postOrder(root.left)
-    if root.right:
-        postOrder(root.right)
-    print(root.info, end=' ')
+    queue = deque()
+    queue.append(root)
+    answer=[]
+    while queue:
+        node = queue.popleft()
+        answer.append(node.info)
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+
+    for i in answer:
+        print(i, end=' ')
+
 
 
 tree = BinarySearchTree()
@@ -58,4 +69,4 @@ arr = list(map(int, input().split()))
 for i in range(t):
     tree.create(arr[i])
 
-postOrder(tree.root)
+levelOrder(tree.root)

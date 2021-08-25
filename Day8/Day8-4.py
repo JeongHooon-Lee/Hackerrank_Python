@@ -1,4 +1,4 @@
-#https://www.hackerrank.com/challenges/tree-height-of-a-binary-tree/problem?h_r=next-challenge&h_v=zen
+#https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/problem
 class Node:
     def __init__(self, info): 
         self.info = info  
@@ -46,13 +46,24 @@ class Node:
 
        // this is a node of the tree , which contains info as data, left , right
 '''
-def height(root):
-    answer=0
-    if root:
-        if root.right or root.left:
-            answer = 1 + max(height(root.left), height(root.right))
-    return answer
+def preOrder(root):
+    if root.left:
+        preOrder(root.left)
+    if root.right:
+        preOrder(root.right)
+    print(root.info)
 
+def lca(root, v1, v2):
+  #Enter your code here
+    current=root
+    while current:
+        if current.info > v1 and current.info > v2:
+            current=current.left
+        elif current.info < v1 and current.info < v2:
+            current=current.right
+        else:
+            break
+    return current
 
 tree = BinarySearchTree()
 t = int(input())
@@ -62,4 +73,8 @@ arr = list(map(int, input().split()))
 for i in range(t):
     tree.create(arr[i])
 
-print(height(tree.root))
+v = list(map(int, input().split()))
+
+preOrder(tree.root)
+ans = lca(tree.root, v[0], v[1])
+print (ans.info)

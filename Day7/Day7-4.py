@@ -1,5 +1,4 @@
-#https://www.hackerrank.com/challenges/tree-top-view/problem
-
+#https://www.hackerrank.com/challenges/tree-height-of-a-binary-tree/problem?h_r=next-challenge&h_v=zen
 class Node:
     def __init__(self, info): 
         self.info = info  
@@ -36,32 +35,24 @@ class BinarySearchTree:
                 else:
                     break
 
-"""
-Node is defined as
-self.left (the left child of the node)
-self.right (the right child of the node)
-self.info (the value of the node)
-"""
-from collections import deque
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+'''
+class Node:
+      def __init__(self,info): 
+          self.info = info  
+          self.left = None  
+          self.right = None 
+           
 
-def topView(root):
-    #Write your code here
-    pos = 0
-    pos_dic={}
-    queue = deque()
-    queue.append((root , pos))
-    while queue:
-        node, pos = queue.popleft()
-        if pos not in pos_dic:
-            pos_dic[pos] = node.info
-        if node.left:
-            queue.append((node.left, pos-1))
-        if node.right:
-            queue.append((node.right, pos+1))
-    
-    for i, k in sorted(pos_dic.items()):
-        print(k, end=' ')
-        
+       // this is a node of the tree , which contains info as data, left , right
+'''
+def height(root):
+    answer=0
+    if root:
+        if root.right or root.left:
+            answer = 1 + max(height(root.left), height(root.right))
+    return answer
+
 
 tree = BinarySearchTree()
 t = int(input())
@@ -71,4 +62,4 @@ arr = list(map(int, input().split()))
 for i in range(t):
     tree.create(arr[i])
 
-topView(tree.root)
+print(height(tree.root))

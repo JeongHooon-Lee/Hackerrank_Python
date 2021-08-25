@@ -1,12 +1,54 @@
+#https://www.hackerrank.com/challenges/print-the-elements-of-a-linked-list/problem
+#!/bin/python3
+import math
+import os
+import random
+import re
 import sys
 
-N=sys.stdin.readline().strip()
+class SinglyLinkedListNode:
+    def __init__(self, node_data):
+        self.data = node_data
+        self.next = None
 
-answer=0
-for i in range(len(N)):
-    try:
-        answer += (16 ** (len(N)-i-1)) * int(N[i])
-    except:
-        answer += (16 ** (len(N)-i-1)) * (ord(N[i])-55)
-    
-print(answer)
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def insert_node(self, node_data):
+        node = SinglyLinkedListNode(node_data)
+
+        if not self.head:
+            self.head = node
+        else:
+            self.tail.next = node
+
+
+        self.tail = node
+
+# Complete the printLinkedList function below.
+
+#
+# For your reference:
+#
+# SinglyLinkedListNode:
+#     int data
+#     SinglyLinkedListNode next
+#
+#
+def printLinkedList(head):
+    if head:
+        print(head.data)
+        printLinkedList(head.next)
+        
+if __name__ == '__main__':
+    llist_count = int(input())
+
+    llist = SinglyLinkedList()
+
+    for _ in range(llist_count):
+        llist_item = int(input())
+        llist.insert_node(llist_item)
+
+    printLinkedList(llist.head)

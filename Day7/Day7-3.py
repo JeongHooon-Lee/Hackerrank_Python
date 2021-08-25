@@ -1,5 +1,4 @@
-#https://www.hackerrank.com/challenges/tree-top-view/problem
-
+#https://www.hackerrank.com/challenges/tree-inorder-traversal/problem
 class Node:
     def __init__(self, info): 
         self.info = info  
@@ -42,26 +41,14 @@ self.left (the left child of the node)
 self.right (the right child of the node)
 self.info (the value of the node)
 """
-from collections import deque
-
-def topView(root):
+def inOrder(root):
     #Write your code here
-    pos = 0
-    pos_dic={}
-    queue = deque()
-    queue.append((root , pos))
-    while queue:
-        node, pos = queue.popleft()
-        if pos not in pos_dic:
-            pos_dic[pos] = node.info
-        if node.left:
-            queue.append((node.left, pos-1))
-        if node.right:
-            queue.append((node.right, pos+1))
-    
-    for i, k in sorted(pos_dic.items()):
-        print(k, end=' ')
-        
+    if root.left:
+        inOrder(root.left)
+    print(root.info, end=' ')
+    if root.right:
+        inOrder(root.right)
+
 
 tree = BinarySearchTree()
 t = int(input())
@@ -71,4 +58,4 @@ arr = list(map(int, input().split()))
 for i in range(t):
     tree.create(arr[i])
 
-topView(tree.root)
+inOrder(tree.root)
